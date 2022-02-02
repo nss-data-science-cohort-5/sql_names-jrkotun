@@ -115,20 +115,19 @@ HAVING COUNT (DISTINCT year) = 1;
 -- Answer: 21123 names have only appeared in one year.
 
 -- Question 17
-SELECT DISTINCT(name), year
+SELECT name
 FROM names
-WHERE year NOT BETWEEN 1880 AND 1949
-AND year NOT BETWEEN 1960 AND 2018
-ORDER BY name;
--- Answer:  names only appeared in the 1950s.
+GROUP BY name
+HAVING MIN(year) >= 1950 
+AND MAX(year) <= 1959;
+-- Answer: 661 names only appeared in the 1950s.
 
--- Question 18
-SELECT COUNT (DISTINCT name) as names_1950s
+-- Question 18	  
+SELECT name, MIN(year)
 FROM names
-WHERE year between 1950 and 1959
-  and name not in
-      (SELECT DISTINCT name FROM names WHERE year < 1950 or year > 1959);
--- Answer:
+GROUP BY name
+HAVING MIN(year) >= 2010;
+-- Answer: 11270 names made their first appearance in the 2010s.
 
 -- Question 19
 SELECT name, 2018 - MAX(year) AS difference
